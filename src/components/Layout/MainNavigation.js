@@ -13,6 +13,11 @@ const MainNavigation = () => {
   const authContext = useContext(AuthContext);
   const isLoggedIn = authContext.isLoggedIn;
 
+  // Logout Handler
+  const logoutHandler = () => {
+    authContext.logout();
+  };
+
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -33,7 +38,7 @@ const MainNavigation = () => {
           {/* Rendering logout button only when loggedIn */}
           {isLoggedIn && (
             <li>
-              <button onClick={authContext.logout}>Logout</button>
+              <button onClick={logoutHandler}>Logout</button>
             </li>
           )}
         </ul>

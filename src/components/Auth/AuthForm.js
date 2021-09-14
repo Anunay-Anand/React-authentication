@@ -1,5 +1,6 @@
 // Importing React and other libraries
 import { useState, useRef, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 // Importing custom components
 import AuthContext from "../../store/auth-context";
@@ -8,6 +9,9 @@ import AuthContext from "../../store/auth-context";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  // Creating our own history object
+  const history = useHistory();
+
   // Using Hooks for different purposes
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +74,8 @@ const AuthForm = () => {
       .then((data) => {
         // Use context to set the state to loggedIn
         authCtx.login(data.idToken);
+        // Redirecting the user
+        history.replace("/");
       })
       .catch((err) => {
         alert(err.message);
