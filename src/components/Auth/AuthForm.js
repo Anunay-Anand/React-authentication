@@ -72,8 +72,12 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
+        // Change the exprires in hour time to actual currenttime + extra time in milliseconds
+        const expirationTime = new Date(
+          new Date().getTime() + +data.expiresIn * 1000
+        );
         // Use context to set the state to loggedIn
-        authCtx.login(data.idToken);
+        authCtx.login(data.idToken, expirationTime);
         // Redirecting the user
         history.replace("/");
       })
