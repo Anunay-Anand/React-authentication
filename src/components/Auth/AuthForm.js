@@ -1,5 +1,8 @@
 // Importing React and other libraries
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
+
+// Importing custom components
+import AuthContext from "../../store/auth-context";
 
 // Importing Css Modules and other assets
 import classes from "./AuthForm.module.css";
@@ -10,6 +13,9 @@ const AuthForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
+
+  // Using context to set App wide state
+  const authCtx = useContext(AuthContext);
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -62,7 +68,8 @@ const AuthForm = () => {
         }
       })
       .then((data) => {
-        console.log(data);
+        // Use context to set the state to loggedIn
+        authCtx.login(data.idToken);
       })
       .catch((err) => {
         alert(err.message);
